@@ -6,5 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface PermissionService {
+
     PermissionResponseDto createPermission(PermissionRequestDto permissionRequestDto);
+
+    PermissionResponseDto getPermission(Long id);
 }

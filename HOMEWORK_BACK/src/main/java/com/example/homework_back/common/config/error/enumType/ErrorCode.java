@@ -18,6 +18,7 @@ public enum ErrorCode {
     WRONG_PASSWORD("008_WRONG_PASSWORD", "틀린 비밀번호 입니다."),
     NOT_ALLOW_EMAIL("009_NOT_ALLOW_EMAIL", "이메일 사용이 허용이 되지 않은 사용자입니다."),
     NOT_FOUND_ROLE("010_ROLE_NOT_FOUND", "존재하지 않는 역할입니다."),
+    NOT_FOUND_PERMISSION("011_PERMISSION_NOT_FOUND", "존재하지 않는 권한입니다."),
 
     // 401
     INVALID_TOKEN("101_INVALID_TOKEN", "유효하지 않은 토큰입니다."),
