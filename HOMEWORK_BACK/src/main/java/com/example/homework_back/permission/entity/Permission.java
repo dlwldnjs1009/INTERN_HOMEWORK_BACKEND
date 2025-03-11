@@ -6,8 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Permission extends BaseEntity {
 
     @Id
@@ -19,4 +21,17 @@ public class Permission extends BaseEntity {
 
     @Column(name = "permission_description")
     private String description;
+
+    public Permission(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public void updateFromDto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    protected Permission() {
+    }
 }
