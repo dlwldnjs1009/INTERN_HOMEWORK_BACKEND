@@ -9,7 +9,6 @@ import com.example.homework_back.user.entity.Users;
 import com.example.homework_back.user.mapper.UserMapper;
 import com.example.homework_back.user.repository.UserRepository;
 import com.example.homework_back.user.service.UserService;
-import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserResponseDto getUser(Long id) {
         Users user = userRepository.findById(id).orElseThrow(() -> new CustomException(
-                HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_NAME, "사용자를 찾을 수 없습니다."));
+                HttpStatus.NOT_FOUND, ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다."));
         return userMapper.toUserResponseDto(user);
     }
 
@@ -43,21 +42,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
-        return null;
-    }
-
     @Transactional
-    @Override
     public UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
         Users user = userRepository.findById(id).orElseThrow(() -> new CustomException(
-                HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_NAME, "사용자를 찾을 수 없습니다."));
+                HttpStatus.NOT_FOUND, ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다."));
         // user엔티티에 userUpdateRequestDto의 정보를 set한 후 저장
         // 저장한 user를 userResponseDto로 변환하여 반환
         userMapper.updateUserFromDto(userUpdateRequestDto, user);
         Users updatedUser = userRepository.save(user);
         return userMapper.toUserResponseDto(updatedUser);
+    }
+
+    public void deleteUser(Long id) {
+        Users user = userRepository.findById(id)
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다."));
+        userRepository.delete(user);
     }
 
 }

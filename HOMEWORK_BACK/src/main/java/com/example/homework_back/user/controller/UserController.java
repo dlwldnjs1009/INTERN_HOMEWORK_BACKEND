@@ -36,5 +36,11 @@ public class UserController {
         UserResponseDto response = userService.updateUser(id, userUpdateRequestDto);
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
     }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<CommonResponse<Void>> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, null));
+    }
 }
 

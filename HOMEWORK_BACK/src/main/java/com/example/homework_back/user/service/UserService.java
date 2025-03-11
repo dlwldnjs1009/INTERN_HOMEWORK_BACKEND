@@ -14,8 +14,7 @@ public interface UserService {
 
     UserResponseDto createUser(UserRequestDto userRequestDto);
 
-    UserResponseDto updateUser(Long id, UserRequestDto userRequestDto);
-
-    @Transactional
     UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
+
+    void deleteUser(Long id);
 }
