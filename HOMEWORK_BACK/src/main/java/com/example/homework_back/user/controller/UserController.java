@@ -3,6 +3,7 @@ package com.example.homework_back.user.controller;
 import com.example.homework_back.common.config.property.response.CommonResponse;
 import com.example.homework_back.common.config.property.success.SuccessCode;
 import com.example.homework_back.user.dto.request.UserRequestDto;
+import com.example.homework_back.user.dto.request.UserUpdateRequestDto;
 import com.example.homework_back.user.dto.response.UserResponseDto;
 import com.example.homework_back.user.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,12 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<CommonResponse<UserResponseDto>> getUser(@PathVariable Long id) {
         UserResponseDto response = userService.getUser(id);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<CommonResponse<UserResponseDto>> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        UserResponseDto response = userService.updateUser(id, userUpdateRequestDto);
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
     }
 }

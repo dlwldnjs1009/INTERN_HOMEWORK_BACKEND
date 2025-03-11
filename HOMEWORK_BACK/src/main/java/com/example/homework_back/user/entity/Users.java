@@ -10,9 +10,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Users extends BaseEntity {
 
     @Id
@@ -45,9 +48,18 @@ public class Users extends BaseEntity {
     @Column(name = "user_last_login_datetime")
     LocalDateTime lastLoginDateTime;
 
-    public Users(Role role, String name, String email, String password, int groupNo, String groupName,
+    public Users(String name, String email, String password, int groupNo, String groupName,
             String statusCode, LocalDateTime lastLoginDateTime) {
-        this.role = role;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.groupNo = groupNo;
+        this.groupName = groupName;
+        this.statusCode = statusCode;
+        this.lastLoginDateTime = lastLoginDateTime;
+    }
+
+    public void updateFromDto(String name, String email, String password, int groupNo, String groupName, String statusCode, LocalDateTime lastLoginDateTime) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -59,8 +71,4 @@ public class Users extends BaseEntity {
 
     protected Users() { }
 
-    public Users changeLastLoginDateTime(LocalDateTime lastLoginDateTime) {
-        this.lastLoginDateTime = lastLoginDateTime;
-        return this;
-    }
 }

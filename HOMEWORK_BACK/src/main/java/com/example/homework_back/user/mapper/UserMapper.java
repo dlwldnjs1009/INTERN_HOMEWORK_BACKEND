@@ -1,12 +1,11 @@
 package com.example.homework_back.user.mapper;
 
 import com.example.homework_back.user.dto.request.UserRequestDto;
+import com.example.homework_back.user.dto.request.UserUpdateRequestDto;
 import com.example.homework_back.user.dto.response.UserResponseDto;
 import com.example.homework_back.user.entity.Users;
-import java.time.LocalDateTime;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
@@ -14,17 +13,21 @@ public interface UserMapper {
 
     UserResponseDto toUserResponseDto(Users user);
 
-//    @Mapping(target = "id", ignore = true)
     Users toUsersForCreate(UserRequestDto userRequestDto);
 
-//    @Mapping(target = "id", ignore = true)
-    Users toUsersForUpdate(UserRequestDto userRequestDto);
+    void updateUserFromDto(UserUpdateRequestDto dto, @MappingTarget Users user);
 
     @AfterMapping
-    default void mapLastLoginDateTime(UserRequestDto dto, @MappingTarget Users user) {
-        if (dto.getLastLoginDateTime() != null && !dto.getLastLoginDateTime().isEmpty()) {
-            user.changeLastLoginDateTime(LocalDateTime.parse(dto.getLastLoginDateTime()));
-        }
+    default void fromUpdate(UserUpdateRequestDto dto, @MappingTarget Users user) {
+            user.updateFromDto(
+                    dto.getName(),
+                    dto.getEmail(),
+                    dto.getPassword(),
+                    dto.getGroupNo(),
+                    dto.getGroupName(),
+                    dto.getStatusCode(),
+                    dto.getLastLoginDateTime()
+            );
     }
 }
 

@@ -2,10 +2,11 @@ package com.example.homework_back.user.dto.request;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class UserRequestDto {
-//    private Role role;
+public class UserUpdateRequestDto {
+    //    private Role role;
     private String name;
     private String email;
     private String password;
@@ -14,4 +15,3 @@ public class UserRequestDto {
     private String statusCode;
     private LocalDateTime lastLoginDateTime;
 }
-

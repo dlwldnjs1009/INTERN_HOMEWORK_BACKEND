@@ -33,5 +33,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
+        Users user = userRepository.findById(id).orElseThrow(() -> new CustomException(
+                HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_NAME, "사용자를 찾을 수 없습니다."));
+        // user엔티티에 userUpdateRequestDto의 정보를 set한 후 저장
+        // 저장한 user를 userResponseDto로 변환하여 반환
+        userMapper.updateUserFromDto(userUpdateRequestDto, user);
+        Users updatedUser = userRepository.save(user);
+        return userMapper.toUserResponseDto(updatedUser);
+    }
+
 }
 
