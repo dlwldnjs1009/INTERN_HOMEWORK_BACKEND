@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
-
+    // todo : 모든 사용자 조회 api 구현
     private final UserService userService;
 
     public UserController(UserService userService) {

@@ -2,6 +2,8 @@ package com.example.homework_back.user.service.impl;
 
 import com.example.homework_back.common.config.error.enumType.ErrorCode;
 import com.example.homework_back.common.config.error.exception.CustomException;
+import com.example.homework_back.role.entity.Role;
+import com.example.homework_back.role.repository.RoleRepository;
 import com.example.homework_back.user.dto.request.UserRequestDto;
 import com.example.homework_back.user.dto.request.UserUpdateRequestDto;
 import com.example.homework_back.user.dto.response.UserResponseDto;
@@ -18,10 +20,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,
+            RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.roleRepository = roleRepository;
     }
 
     @Transactional(readOnly = true)
@@ -34,7 +39,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         try {
+
+            Role role = roleRepository.findById(userRequestDto.getRoleId())
+                    .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_ROLE, "역할을 찾을 수 없습니다."));
+
             Users user = userMapper.toUsersForCreate(userRequestDto);
+            user.updateRole(role);
+
             Users savedUser = userRepository.save(user);
             return userMapper.toUserResponseDto(savedUser);
         } catch (Exception e) {
@@ -44,9 +55,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
+        Role role = roleRepository.findById(userUpdateRequestDto.getRoleId())
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_ROLE, "역할을 찾을 수 없습니다."));
+
         Users user = userRepository.findById(id).orElseThrow(() -> new CustomException(
                 HttpStatus.NOT_FOUND, ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다."));
+
         userMapper.updateUserFromDto(userUpdateRequestDto, user);
+        user.updateRole(role);
         Users updatedUser = userRepository.save(user);
         return userMapper.toUserResponseDto(updatedUser);
     }

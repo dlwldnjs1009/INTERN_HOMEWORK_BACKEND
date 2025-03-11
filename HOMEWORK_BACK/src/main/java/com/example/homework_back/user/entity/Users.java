@@ -9,8 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import java.beans.ConstructorProperties;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -23,8 +22,8 @@ public class Users extends BaseEntity {
     @Column(name = "user_id")
     Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     @Column(name = "user_name")
@@ -48,8 +47,14 @@ public class Users extends BaseEntity {
     @Column(name = "user_last_login_datetime")
     LocalDateTime lastLoginDateTime;
 
-    public Users(String name, String email, String password, int groupNo, String groupName,
+    public Users updateRole(Role role) {
+        this.role = role;
+        return this;
+    }
+
+    public Users(Role role, String name, String email, String password, int groupNo, String groupName,
             String statusCode, LocalDateTime lastLoginDateTime) {
+        this.role = role;
         this.name = name;
         this.email = email;
         this.password = password;

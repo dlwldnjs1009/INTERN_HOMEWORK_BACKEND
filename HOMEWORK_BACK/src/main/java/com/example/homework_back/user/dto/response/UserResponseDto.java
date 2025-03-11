@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Getter
 public class UserResponseDto {
     private final Long id;
-//    private Role role;
+    private final Long roleId;
     private final String name;
     private final String email;
     private final String password;
@@ -17,9 +17,10 @@ public class UserResponseDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public UserResponseDto(Long id, String name, String email, String password, int groupNo, String groupName, String statusCode, LocalDateTime lastLoginDateTime,
+    public UserResponseDto(Long id, Long roleId, String name, String email, String password, int groupNo, String groupName, String statusCode, LocalDateTime lastLoginDateTime,
             LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
+        this.roleId = roleId;
         this.name = name;
         this.email = email;
         this.password = password;
