@@ -1,12 +1,16 @@
 package com.example.homework_back.user.service.impl;
 
+import com.example.homework_back.common.config.error.enumType.ErrorCode;
 import com.example.homework_back.common.config.error.exception.CustomException;
 import com.example.homework_back.user.dto.request.UserRequestDto;
+import com.example.homework_back.user.dto.request.UserUpdateRequestDto;
 import com.example.homework_back.user.dto.response.UserResponseDto;
 import com.example.homework_back.user.entity.Users;
 import com.example.homework_back.user.mapper.UserMapper;
 import com.example.homework_back.user.repository.UserRepository;
 import com.example.homework_back.user.service.UserService;
+import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +25,13 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    @Override
+    @Transactional(readOnly = true)
+    public UserResponseDto getUser(Long id) {
+        Users user = userRepository.findById(id).orElseThrow(() -> new CustomException(
+                HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_NAME, "사용자를 찾을 수 없습니다."));
+        return userMapper.toUserResponseDto(user);
+    }
+
     @Transactional
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         try {
