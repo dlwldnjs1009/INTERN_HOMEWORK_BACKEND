@@ -45,4 +45,16 @@ public class permissionServiceImpl implements PermissionService {
         return permissionMapper.toPermissionResponseDto(permission);
     }
 
+    @Override
+    @Transactional
+    public PermissionResponseDto updatePermission(Long id,
+            PermissionRequestDto permissionRequestDto) {
+        Permission permission = permissionRepository.findById(id).orElseThrow(
+                () -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_PERMISSION,
+                        "권한을 찾을 수 없습니다."));
+        permissionMapper.updatePermissionFromDto(permissionRequestDto, permission);
+        Permission updatedPermission = permissionRepository.save(permission);
+        return permissionMapper.toPermissionResponseDto(updatedPermission);
+    }
+
 }

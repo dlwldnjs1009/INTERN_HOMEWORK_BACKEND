@@ -10,4 +10,6 @@ public interface PermissionService {
     PermissionResponseDto createPermission(PermissionRequestDto permissionRequestDto);
 
     PermissionResponseDto getPermission(Long id);
+
+    PermissionResponseDto updatePermission(Long id, PermissionRequestDto permissionRequestDto);
 }

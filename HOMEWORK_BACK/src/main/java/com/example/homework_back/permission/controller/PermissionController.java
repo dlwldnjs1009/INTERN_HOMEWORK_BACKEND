@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,13 @@ public class PermissionController {
     @GetMapping("/permissions/{id}")
     public ResponseEntity<CommonResponse<PermissionResponseDto>> getPermission(@PathVariable Long id) {
         PermissionResponseDto response = permissionService.getPermission(id);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
+    }
+
+    @PutMapping("/permissions/{id}")
+    public ResponseEntity<CommonResponse<PermissionResponseDto>> updatePermission(Long id,
+            @RequestBody PermissionRequestDto permissionRequestDto) {
+        PermissionResponseDto response = permissionService.updatePermission(id, permissionRequestDto);
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
     }
 }
