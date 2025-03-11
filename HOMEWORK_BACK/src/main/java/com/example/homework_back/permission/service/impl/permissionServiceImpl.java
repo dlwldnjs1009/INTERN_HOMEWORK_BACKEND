@@ -57,4 +57,13 @@ public class permissionServiceImpl implements PermissionService {
         return permissionMapper.toPermissionResponseDto(updatedPermission);
     }
 
+    @Override
+    @Transactional
+    public void deletePermission(Long id) {
+        Permission permission = permissionRepository.findById(id).orElseThrow(
+                () -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_PERMISSION,
+                        "권한을 찾을 수 없습니다."));
+        permissionRepository.delete(permission);
+    }
+
 }

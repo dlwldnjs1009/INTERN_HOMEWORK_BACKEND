@@ -12,4 +12,6 @@ public interface PermissionService {
     PermissionResponseDto getPermission(Long id);
 
     PermissionResponseDto updatePermission(Long id, PermissionRequestDto permissionRequestDto);
+
+    void deletePermission(Long id);
 }

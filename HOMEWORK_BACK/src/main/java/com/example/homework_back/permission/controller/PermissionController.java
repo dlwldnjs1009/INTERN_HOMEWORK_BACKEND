@@ -6,6 +6,7 @@ import com.example.homework_back.permission.dto.request.PermissionRequestDto;
 import com.example.homework_back.permission.dto.response.PermissionResponseDto;
 import com.example.homework_back.permission.service.PermissionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,15 @@ public class PermissionController {
     }
 
     @PutMapping("/permissions/{id}")
-    public ResponseEntity<CommonResponse<PermissionResponseDto>> updatePermission(Long id,
+    public ResponseEntity<CommonResponse<PermissionResponseDto>> updatePermission(@PathVariable Long id,
             @RequestBody PermissionRequestDto permissionRequestDto) {
         PermissionResponseDto response = permissionService.updatePermission(id, permissionRequestDto);
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
+    }
+
+    @DeleteMapping("/permissions/{id}")
+    public ResponseEntity<CommonResponse<Void>> deletePermission(@PathVariable Long id) {
+        permissionService.deletePermission(id);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, null));
     }
 }

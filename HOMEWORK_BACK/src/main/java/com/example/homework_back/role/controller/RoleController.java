@@ -40,7 +40,7 @@ public class RoleController {
     }
 
     @PutMapping("/roles/{id}")
-    public ResponseEntity<CommonResponse<RoleResponseDto>> updateRole(Long id,
+    public ResponseEntity<CommonResponse<RoleResponseDto>> updateRole(@PathVariable Long id,
             @RequestBody RoleUpdateRequestDto roleUpdateRequestDto) {
         RoleResponseDto response = roleService.updateRole(id, roleUpdateRequestDto);
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
