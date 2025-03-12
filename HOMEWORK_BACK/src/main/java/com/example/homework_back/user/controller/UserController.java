@@ -6,6 +6,7 @@ import com.example.homework_back.user.dto.request.UserRequestDto;
 import com.example.homework_back.user.dto.request.UserUpdateRequestDto;
 import com.example.homework_back.user.dto.response.UserResponseDto;
 import com.example.homework_back.user.service.UserService;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,12 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<CommonResponse<UserResponseDto>> createUser(@RequestBody UserRequestDto userRequestDto) {
         UserResponseDto response = userService.createUser(userRequestDto);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<CommonResponse<List<UserResponseDto>>> getAllUsers() {
+        List<UserResponseDto> response = userService.getAllUsers();
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
     }
 

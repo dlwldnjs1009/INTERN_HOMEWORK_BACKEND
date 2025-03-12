@@ -4,6 +4,7 @@ import com.example.homework_back.user.dto.request.UserRequestDto;
 import com.example.homework_back.user.dto.request.UserUpdateRequestDto;
 import com.example.homework_back.user.dto.response.UserResponseDto;
 import com.example.homework_back.user.entity.Users;
+import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,6 +12,9 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+    @Mapping(target = "roleId", source = "role.id")
+    List<UserResponseDto> userListToResponseDtoList(List<Users> users);
 
     @Mapping(target = "roleId", source = "role.id")
     UserResponseDto toUserResponseDto(Users user);

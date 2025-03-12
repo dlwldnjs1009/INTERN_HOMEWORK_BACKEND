@@ -11,6 +11,7 @@ import com.example.homework_back.user.entity.Users;
 import com.example.homework_back.user.mapper.UserMapper;
 import com.example.homework_back.user.repository.UserRepository;
 import com.example.homework_back.user.service.UserService;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,13 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.roleRepository = roleRepository;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> getAllUsers() {
+        List<Users> users = userRepository.findAll();
+        return userMapper.userListToResponseDtoList(users);
     }
 
     @Transactional(readOnly = true)
