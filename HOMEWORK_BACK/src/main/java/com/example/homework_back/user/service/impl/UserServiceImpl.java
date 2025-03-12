@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 유저는 생성할 때 반드시 역할을 가지고 있어야 한다.
      * todo: 아래 메소드는 User 생성과 Role 매핑을 담당하고 있어 차후에
      * 유지보수나 확장을 위해서 더 작은 책임을 가지도록 분리가 필요하다.
      */
