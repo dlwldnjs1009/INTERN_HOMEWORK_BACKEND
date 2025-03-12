@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class RoleRequestDto {
-    RoleType name;
-    String description;
+    private RoleType name;
+    private String description;
 }
