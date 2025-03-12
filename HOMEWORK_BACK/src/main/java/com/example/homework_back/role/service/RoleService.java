@@ -3,11 +3,13 @@ package com.example.homework_back.role.service;
 import com.example.homework_back.role.dto.request.RoleRequestDto;
 import com.example.homework_back.role.dto.request.RoleUpdateRequestDto;
 import com.example.homework_back.role.dto.response.RoleResponseDto;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface RoleService {
-    // todo : getALL 구현해야 함.
+
+    List<RoleResponseDto> getAllRoles();
 
     RoleResponseDto getRole(Long id);
 

@@ -6,6 +6,7 @@ import com.example.homework_back.role.dto.request.RoleRequestDto;
 import com.example.homework_back.role.dto.request.RoleUpdateRequestDto;
 import com.example.homework_back.role.dto.response.RoleResponseDto;
 import com.example.homework_back.role.service.RoleService;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,12 @@ public class RoleController {
     @GetMapping("/roles/{id}")
     public ResponseEntity<CommonResponse<RoleResponseDto>> getRole(@PathVariable Long id) {
         RoleResponseDto response = roleService.getRole(id);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<CommonResponse<List<RoleResponseDto>>> getAllRoles() {
+        List<RoleResponseDto> response = roleService.getAllRoles();
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
     }
 

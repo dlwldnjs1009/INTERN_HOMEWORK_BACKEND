@@ -31,6 +31,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<RoleResponseDto> getAllRoles() {
+        List<Role> roles = roleRepository.findAll();
+        return roleMapper.roleListToResponseDtoList(roles);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public RoleResponseDto getRole(Long id) {
         Role role = roleRepository.findById(id).orElseThrow(
                 () -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND_ROLE,
@@ -42,6 +49,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     public RoleResponseDto createRole(RoleRequestDto roleRequestDto) {
         try {
+            // todo: 역할 생성 시 RoleType enum 타입이 아닌 데이터 들어오면 오류처리 필요
             Role role = roleMapper.toRoleForCreate(roleRequestDto);
             Role savedRole = roleRepository.save(role);
             return roleMapper.toRoleResponseDto(savedRole);

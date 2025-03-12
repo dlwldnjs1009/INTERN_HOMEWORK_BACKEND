@@ -17,6 +17,9 @@ import org.mapstruct.Named;
 public interface RoleMapper {
 
     @Mapping(target = "permissionId", source = "permissions", qualifiedByName = "streamPermissions")
+    List<RoleResponseDto> roleListToResponseDtoList(List<Role> roles);
+
+    @Mapping(target = "permissionId", source = "permissions", qualifiedByName = "streamPermissions")
     RoleResponseDto toRoleResponseDto(Role role);
 
     Role toRoleForCreate(RoleRequestDto roleRequestDto);
