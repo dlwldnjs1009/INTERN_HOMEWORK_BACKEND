@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public interface UserService {
 
-    // todo: soft delete 한 데이터는 찾지 않도록 구현
     UserResponseDto getUser(Long id);
 
     UserResponseDto createUser(UserRequestDto userRequestDto);

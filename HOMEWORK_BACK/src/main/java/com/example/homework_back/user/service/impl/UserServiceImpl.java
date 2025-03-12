@@ -36,6 +36,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserResponseDto(user);
     }
 
+    /**
+     * todo: 아래 메소드는 User 생성과 Role 매핑을 담당하고 있어 차후에
+     * 유지보수나 확장을 위해서 더 작은 책임을 가지도록 분리가 필요하다.
+     */
     @Transactional
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         try {

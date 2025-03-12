@@ -45,7 +45,6 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    // todo : 수정 제대로 안됨 디버깅 할 것.
     @Override
     @Transactional
     public RoleResponseDto updateRole(Long id, RoleUpdateRequestDto roleUpdateRequestDto) {
