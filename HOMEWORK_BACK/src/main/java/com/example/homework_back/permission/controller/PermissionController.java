@@ -5,6 +5,7 @@ import com.example.homework_back.common.config.property.success.SuccessCode;
 import com.example.homework_back.permission.dto.request.PermissionRequestDto;
 import com.example.homework_back.permission.dto.response.PermissionResponseDto;
 import com.example.homework_back.permission.service.PermissionService;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,12 @@ public class PermissionController {
     public ResponseEntity<CommonResponse<PermissionResponseDto>> createPermission(
             @RequestBody PermissionRequestDto permissionRequestDto) {
         PermissionResponseDto response = permissionService.createPermission(permissionRequestDto);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
+    }
+
+    @GetMapping("/permissions")
+    public ResponseEntity<CommonResponse<List<PermissionResponseDto>>> getAllPermissions() {
+        List<PermissionResponseDto> response = permissionService.getAllPermissions();
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, response));
     }
 

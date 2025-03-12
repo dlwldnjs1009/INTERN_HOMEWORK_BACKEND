@@ -8,6 +8,7 @@ import com.example.homework_back.permission.entity.Permission;
 import com.example.homework_back.permission.mapper.PermissionMapper;
 import com.example.homework_back.permission.repository.PermissionRepository;
 import com.example.homework_back.permission.service.PermissionService;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,12 @@ public class permissionServiceImpl implements PermissionService {
             PermissionMapper permissionMapper) {
         this.permissionRepository = permissionRepository;
         this.permissionMapper = permissionMapper;
+    }
+
+    @Override
+    public List<PermissionResponseDto> getAllPermissions() {
+        List<Permission> permissions = permissionRepository.findAll();
+        return permissionMapper.permissionListToResponseDtoList(permissions);
     }
 
     @Override
