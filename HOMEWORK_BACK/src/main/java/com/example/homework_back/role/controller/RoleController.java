@@ -51,4 +51,16 @@ public class RoleController {
         roleService.deleteRole(id);
         return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, null));
     }
+
+    @PostMapping("/roles/{roleId}/permissions/{permissionId}")
+    public ResponseEntity<CommonResponse<Void>> addPermissionToRole(@PathVariable Long roleId, @PathVariable Long permissionId) {
+        roleService.addPermissionToRole(roleId, permissionId);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, null));
+    }
+
+    @DeleteMapping("/roles/{roleId}/permissions/{permissionId}")
+    public ResponseEntity<CommonResponse<Void>> removePermissionFromRole(@PathVariable Long roleId, @PathVariable Long permissionId) {
+        roleService.removePermissionFromRole(roleId, permissionId);
+        return ResponseEntity.ok(CommonResponse.of(SuccessCode.OK, null));
+    }
 }

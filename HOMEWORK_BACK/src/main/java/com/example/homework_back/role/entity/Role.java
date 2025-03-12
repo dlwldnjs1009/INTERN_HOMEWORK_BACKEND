@@ -61,10 +61,13 @@ public class Role extends BaseEntity {
     protected Role() {
     }
 
-//    @ManyToMany(fetch = FetchType.LAZY) // 기본 패치 전략은 지연 로딩
-//    @JoinTable(name = "role_permission", // JPA는 내부적으로 "role_permission" 조인 테이블 생성
-//            joinColumns = @JoinColumn(name = "role_id"), // role_id와 permission_id를 결합한 유니크 제약 조건으로 관리
-//            inverseJoinColumns = @JoinColumn(name = "permission_id")) // 두 컬럼의 조합은 유일하게 관리됨.
-//    private List<Permission> permissions = new ArrayList<Permission>();
+    public void addPermission(Permission permission) {
+        this.permissions.add(permission);
+    }
+
+    public void removePermission(Permission permission) {
+        this.permissions.remove(permission);
+    }
+
 
 }
